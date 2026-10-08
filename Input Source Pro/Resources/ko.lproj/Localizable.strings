@@ -175,7 +175,7 @@
 "Twitter" = "트위터";
 
 "Privacy" = "개인 정보 보호";
-"Privacy Content" = "개인 정보를 포함하지 않은 시작 및 충돌 데이터만 수집합니다.";
+"Privacy Content" = "시작 진단 정보는 기본적으로 꺼져 있습니다. 켜면 시작 시 앱과 macOS 버전이 inputsource.pro로 전송되며 서버는 IP 주소를 볼 수 있습니다. 끄면 이후 시작 요청이 중단됩니다. 피드백과 업데이트 확인은 별도 기능입니다. 설정 화면은 refine.sh의 홍보 이미지를 불러올 수 있습니다.";
 
 "Find Us" = "우리를 찾으세요";
 "Right click each section to copy link" = "링크를 복사하려면 각 섹션을 마우스 오른쪽 버튼으로 클릭하세요";
@@ -256,3 +256,8 @@
 
 "Receive beta updates" = "베타 업데이트 받기";
 "Stable updates resume when a newer stable build is available." = "더 높은 빌드 번호의 안정 버전이 나오면 안정 버전 업데이트가 재개됩니다.";
+
+"Share startup diagnostics" = "시작 진단 정보 공유";
+"Select a regular settings file." = "일반 설정 파일을 선택하세요.";
+"Settings files must be no larger than 4 MiB." = "설정 파일은 4 MiB 이하여야 합니다.";
+"Import always asks before replacing settings." = "설정을 교체하기 전에 항상 확인합니다.";

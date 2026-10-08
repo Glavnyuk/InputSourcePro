@@ -1,4 +1,5 @@
 import Foundation
+import Darwin
 
 /// The custom URL scheme Input Source Pro registers (see `CFBundleURLTypes` in
 /// `Info.plist`). Used to trigger actions from the command line, e.g.
@@ -97,5 +98,54 @@ enum AppURLAction: Equatable {
             return false
         }
         return raw == "1" || raw == "true"
+    }
+}
+
+
+/// Read untrusted backups without blocking the UI or accepting devices/FIFOs.
+enum SettingsBackupFileReader {
+    static let maximumBytes = 4 * 1024 * 1024
+
+    enum Failure: LocalizedError {
+        case notRegularFile, tooLarge
+
+        var errorDescription: String? {
+            switch self {
+            case .notRegularFile: return "Select a regular settings file.".i18n()
+            case .tooLarge: return "Settings files must be no larger than 4 MiB.".i18n()
+            }
+        }
+    }
+
+    static func read(from url: URL) async throws -> Data {
+        try await Task.detached(priority: .userInitiated) {
+            try readBounded(from: url)
+        }.value
+    }
+
+    static func readBounded(from url: URL) throws -> Data {
+        guard url.isFileURL else { throw Failure.notRegularFile }
+        // Nonblocking open prevents a FIFO from hanging before fstat can reject it.
+        let fd = open(url.path, O_RDONLY | O_NONBLOCK | O_CLOEXEC | O_NOFOLLOW)
+        guard fd >= 0 else { throw NSError(domain: NSPOSIXErrorDomain, code: Int(errno)) }
+        defer { close(fd) }
+        var info = stat()
+        guard fstat(fd, &info) == 0 else {
+            throw NSError(domain: NSPOSIXErrorDomain, code: Int(errno))
+        }
+        guard info.st_mode & S_IFMT == S_IFREG else { throw Failure.notRegularFile }
+        guard info.st_size <= maximumBytes else { throw Failure.tooLarge }
+
+        var result = Data()
+        var buffer = [UInt8](repeating: 0, count: 64 * 1024)
+        while true {
+            // Enforce the cap while reading too, in case the file grows after fstat.
+            let count = Darwin.read(fd, &buffer, min(buffer.count, maximumBytes - result.count + 1))
+            if count < 0 && errno == EINTR { continue }
+            guard count >= 0 else { throw NSError(domain: NSPOSIXErrorDomain, code: Int(errno)) }
+            if count == 0 { return result }
+            guard result.count + count <= maximumBytes else { throw Failure.tooLarge }
+            result.append(contentsOf: buffer.prefix(count))
+        }
     }
 }

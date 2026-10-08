@@ -27,3 +27,33 @@ final class UpdateChannelTests: XCTestCase {
         XCTAssertTrue(UpdateChannelSettings(defaults: defaults, isBetaBuild: false).receivesBetaUpdates)
     }
 }
+
+
+@MainActor
+final class LaunchTelemetrySettingsTests: XCTestCase {
+    func testDefaultsToOffAndRemembersExplicitChoice() {
+        let name = "LaunchTelemetrySettingsTests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        defer { defaults.removePersistentDomain(forName: name) }
+        let settings = LaunchTelemetrySettings(defaults: defaults)
+        XCTAssertFalse(settings.isEnabled)
+        settings.isEnabled = true
+        XCTAssertTrue(LaunchTelemetrySettings(defaults: defaults).isEnabled)
+        settings.isEnabled = false
+        XCTAssertFalse(LaunchTelemetrySettings(defaults: defaults).isEnabled)
+    }
+}
+
+
+@MainActor
+final class SettingsImportConfirmationTests: XCTestCase {
+    func testCancelIsDefaultAndFileNameIsVisible() {
+        let alert = PreferencesVM.settingsImportConfirmation(from: URL(fileURLWithPath: "/tmp/untrusted-settings.json"))
+        XCTAssertEqual(alert.buttons.count, 2)
+        XCTAssertEqual(alert.buttons[0].title, "Cancel".i18n())
+        XCTAssertEqual(alert.buttons[0].keyEquivalent, "\r")
+        XCTAssertEqual(alert.buttons[1].title, "Import Settings".i18n())
+        XCTAssertEqual(alert.buttons[1].keyEquivalent, "")
+        XCTAssertTrue(alert.informativeText.contains("untrusted-settings.json"))
+    }
+}

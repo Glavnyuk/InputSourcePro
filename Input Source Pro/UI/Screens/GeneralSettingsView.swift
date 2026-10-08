@@ -226,6 +226,7 @@ struct GeneralSettingsView: View {
                             Spacer()
                         }
                     }
+                    .disabled(preferencesVM.isImportingSettings)
                     .buttonStyle(SectionButtonStyle())
                     .border(width: 1, edges: [.bottom], color: NSColor.border2.color)
 
@@ -311,6 +312,8 @@ struct GeneralSettingsView: View {
                 }
                 
                 SettingsSection(title: "Privacy") {
+                    Toggle("Share startup diagnostics".i18n(), isOn: $preferencesVM.sendsLaunchTelemetry)
+                        .padding()
                     HStack {
                         Text("Privacy Content".i18n())
                             .multilineTextAlignment(.leading)
@@ -387,45 +390,38 @@ struct GeneralSettingsView: View {
     }
 
     func importSettings() {
-        let panel = NSOpenPanel()
-        panel.title = "Import Settings".i18n()
-        panel.canChooseDirectories = false
-        panel.allowsMultipleSelection = false
-        panel.allowedContentTypes = [.json]
+        guard !preferencesVM.isImportingSettings else { return }
+        preferencesVM.isImportingSettings = true
+        Task { @MainActor in
+            defer { preferencesVM.isImportingSettings = false }
+            let panel = NSOpenPanel()
+            panel.title = "Import Settings".i18n()
+            panel.canChooseDirectories = false
+            panel.allowsMultipleSelection = false
+            panel.allowedContentTypes = [.json]
 
-        guard panel.runModal() == .OK,
-              let url = panel.url
-        else { return }
+            guard panel.runModal() == .OK,
+                  let url = panel.url,
+                  preferencesVM.confirmSettingsImport(from: url)
+            else { return }
 
-        do {
-            let backup = try preferencesVM.readSettingsBackup(from: url)
-
-            guard confirmSettingsImport() else { return }
-
-            try preferencesVM.importSettingsBackup(backup)
-            indicatorVM.refreshShortcut()
-            showSettingsBackupAlert(
-                title: "Settings Imported".i18n(),
-                message: "Settings Imported Message".i18n(),
-                style: .informational
-            )
-        } catch {
-            showSettingsBackupAlert(
-                title: "Import Settings Failed".i18n(),
-                message: error.localizedDescription,
-                style: .critical
-            )
+            do {
+                let backup = try await preferencesVM.readSettingsBackup(from: url)
+                try preferencesVM.importSettingsBackup(backup)
+                indicatorVM.refreshShortcut()
+                showSettingsBackupAlert(
+                    title: "Settings Imported".i18n(),
+                    message: "Settings Imported Message".i18n(),
+                    style: .informational
+                )
+            } catch {
+                showSettingsBackupAlert(
+                    title: "Import Settings Failed".i18n(),
+                    message: error.localizedDescription,
+                    style: .critical
+                )
+            }
         }
-    }
-
-    func confirmSettingsImport() -> Bool {
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-        alert.messageText = "Replace Current Settings?".i18n()
-        alert.informativeText = "Import Settings Confirmation Message".i18n()
-        alert.addButton(withTitle: "Import Settings".i18n())
-        alert.addButton(withTitle: "Cancel".i18n())
-        return alert.runModal() == .alertFirstButtonReturn
     }
 
     func showSettingsBackupAlert(title: String, message: String, style: NSAlert.Style) {
@@ -528,6 +524,10 @@ private struct ScriptableSettingsImportGuideView: View {
             header
 
             commandBox
+
+            Text("Import always asks before replacing settings.".i18n())
+                .font(.callout)
+                .fixedSize(horizontal: false, vertical: true)
 
             HStack {
                 HStack(spacing: 6) {

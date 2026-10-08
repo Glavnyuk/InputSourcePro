@@ -177,7 +177,7 @@
 "Twitter" = "推特";
 
 "Privacy" = "隱私";
-"Privacy Content" = "我們會收集啟動以及當機資料。所有收集的資料均不包括任何個人資訊。";
+"Privacy Content" = "啟動診斷資訊預設關閉。啟用後，每次啟動會向 inputsource.pro 傳送應用程式和 macOS 版本，伺服器可看到您的 IP 位址。關閉後將停止後續啟動請求。意見回饋與更新檢查是獨立功能。設定頁面可能從 refine.sh 載入推廣圖片。";
 
 "Find Us" = "找到我們";
 "Right click each section to copy link" = "右鍵點選各項可以複製連結";
@@ -258,3 +258,8 @@
 
 "Receive beta updates" = "接收測試版更新";
 "Stable updates resume when a newer stable build is available." = "當有更新的穩定版組建可用時，將恢復穩定版更新。";
+
+"Share startup diagnostics" = "分享啟動診斷資訊";
+"Select a regular settings file." = "請選擇一般的設定檔案。";
+"Settings files must be no larger than 4 MiB." = "設定檔案不得大於 4 MiB。";
+"Import always asks before replacing settings." = "取代設定前一律要求確認。";

@@ -30,9 +30,17 @@ final class PreferencesVM: ObservableObject {
     @Published
     var keyboardConfigs: [KeyboardConfig] = []
 
+    @Published var isImportingSettings = false
+
     var permissionsVM: PermissionsVM
 
     private let updateChannel = UpdateChannelSettings()
+    private let launchTelemetry = LaunchTelemetrySettings()
+
+    // Kept outside settings backups so imported files cannot opt a user in.
+    @Published var sendsLaunchTelemetry = false {
+        didSet { launchTelemetry.isEnabled = sendsLaunchTelemetry }
+    }
 
     @Published var receivesBetaUpdates = false {
         didSet { updateChannel.receivesBetaUpdates = receivesBetaUpdates }
@@ -68,6 +76,7 @@ final class PreferencesVM: ObservableObject {
         container = NSPersistentContainer(name: "Main")
         mainStorage = MainStorage(container: container)
 
+        sendsLaunchTelemetry = launchTelemetry.isEnabled
         receivesBetaUpdates = updateChannel.receivesBetaUpdates
         setupAutoUpdate()
 
@@ -762,5 +771,21 @@ final class UpdateChannelSettings: NSObject, SPUUpdaterDelegate {
 
     func feedURLString(for updater: SPUUpdater) -> String? {
         feedURL
+    }
+}
+
+
+@MainActor
+final class LaunchTelemetrySettings {
+    static let preferenceKey = "sendsLaunchTelemetry"
+    private let defaults: UserDefaults
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+    }
+
+    var isEnabled: Bool {
+        get { defaults.bool(forKey: Self.preferenceKey) }
+        set { defaults.set(newValue, forKey: Self.preferenceKey) }
     }
 }

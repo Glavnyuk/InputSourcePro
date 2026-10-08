@@ -175,7 +175,7 @@
 "Twitter" = "Twitter";
 
 "Privacy" = "Privacy";
-"Privacy Content" = "We only collect startup and crash data which does not include any personal information.";
+"Privacy Content" = "Startup diagnostics are off by default. If enabled, app and macOS versions are sent to inputsource.pro at launch; its server can see your IP address. Turning this off stops future startup requests. Feedback and update checks are separate. Settings may load a promotional image from refine.sh.";
 
 "Find Us" = "Find Us";
 "Right click each section to copy link" = "right click each section to copy link";
@@ -256,3 +256,8 @@
 
 "Receive beta updates" = "Receive beta updates";
 "Stable updates resume when a newer stable build is available." = "Stable updates resume when a newer stable build is available.";
+
+"Share startup diagnostics" = "Share startup diagnostics";
+"Select a regular settings file." = "Select a regular settings file.";
+"Settings files must be no larger than 4 MiB." = "Settings files must be no larger than 4 MiB.";
+"Import always asks before replacing settings." = "Import always asks before replacing settings.";

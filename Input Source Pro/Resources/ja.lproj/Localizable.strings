@@ -175,7 +175,7 @@
 "Twitter" = "ツイッター";
 
 "Privacy" = "プライバシー";
-"Privacy Content" = "個人情報を含まない、起動時およびクラッシュ時のデータのみを収集します。";
+"Privacy Content" = "起動時の診断情報は初期設定で無効です。有効にすると、起動時にアプリとmacOSのバージョンがinputsource.proへ送信され、サーバーはIPアドレスを確認できます。無効にすると以後の送信を停止します。フィードバックと更新確認は別機能です。設定画面でrefine.shの広告画像を読み込む場合があります。";
 
 "Find Us" = "私たちを見つける";
 "Right click each section to copy link" = "各セクションを右クリックしてリンクをコピー";
@@ -256,3 +256,8 @@
 
 "Receive beta updates" = "ベータ版のアップデートを受け取る";
 "Stable updates resume when a newer stable build is available." = "より新しい安定版のビルドが公開されると、安定版の更新が再開されます。";
+
+"Share startup diagnostics" = "起動時の診断情報を共有";
+"Select a regular settings file." = "通常の設定ファイルを選択してください。";
+"Settings files must be no larger than 4 MiB." = "設定ファイルは4 MiB以下にしてください。";
+"Import always asks before replacing settings." = "設定を置き換える前に必ず確認します。";
