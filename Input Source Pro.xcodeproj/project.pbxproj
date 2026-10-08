@@ -229,6 +229,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D60000912F20000000000091 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D73000022F20000000000001 /* CaretChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools/CaretPalette/CaretChannel.swift; sourceTree = SOURCE_ROOT; };
 		D73000042F20000000000001 /* CaretChannelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretChannelTests.swift; sourceTree = "<group>"; };
 		D72000022F20000000000001 /* CaretFocusObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretFocusObserver.swift; sourceTree = "<group>"; };
@@ -911,6 +912,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				uk,
 				Base,
 				"zh-Hans",
 				ja,
@@ -1209,6 +1211,7 @@
 			children = (
 				4A5BABE82830A720009F42D7 /* zh-Hans */,
 				4A5BABEA2830A726009F42D7 /* en */,
+				D60000912F20000000000091 /* uk */,
 				D5F6E8D429EC812500DE042B /* ja */,
 				D5EAAC512A47BF7E00A41BC1 /* ko */,
 				D51488D52A495F39001463B6 /* zh-Hant */,

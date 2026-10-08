@@ -1,0 +1,298 @@
+"Input Source Pro" = "Input Source Pro";
+"Preferences" = "Налаштування";
+"Changelog" = "Історія змін";
+"Check for Updates" = "Перевірити оновлення";
+"Buy me a bubble tea" = "Пригостити автора чаєм";
+"Join Our Community" = "Приєднатися до спільноти";
+"Quit" = "Завершити роботу";
+"Default Keyboard for %@" = "Типова розкладка для %@";
+"Current App" = "Поточний застосунок";
+"Default Keyboard Tooltip" = "Залиште поле порожнім, щоб Input Source Pro не перемикав розкладку";
+"Default" = "Типово";
+
+"Promotion" = "Input Source Pro — повністю безкоштовний застосунок без реклами й покупок у застосунку та з повністю відкритим кодом. Якщо він вам подобається, ось як можна підтримати його розвиток :)";
+"Star on GitHub" = "Поставити зірку на GitHub";
+"Sponsor" = "Підтримати автора";
+"Share with friends" = "Поділитися з друзями";
+"Also by Runju" = "Інші застосунки Runju";
+"An AI-powered grammar checker that runs 100% locally" = "Перевірка граматики за допомогою ШІ, що працює повністю локально";
+
+"General" = "Загальні";
+"Rules" = "Правила";
+"App Rules" = "Правила застосунків";
+"Browser Rules" = "Правила браузерів";
+"Hot Keys" = "Клавіші швидкого доступу";
+"Others" = "Інше";
+"About" = "Про застосунок";
+
+"System" = "Система";
+"Launch at Login" = "Запускати під час входу";
+"Display Icon in Menu Bar" = "Показувати іконку в смузі меню";
+"Enhanced Mode" = "Розширений режим";
+"Enhanced Mode Description" = "Розширений режим точніше розміщує індикатор і покращує підтримку застосунків на зразок Spotlight";
+"Enhanced Mode Permission Description" = "Для **розширеного режиму** Input Source Pro потрібен дозвіл **доступності**.";
+"Enhanced Mode Required Tips" = "Для цієї функції потрібно ввімкнути розширений режим.";
+"Open Accessibility Preferences" = "Відкрити налаштування доступності";
+
+"For All Apps and Websites" = "Для всіх застосунків і сайтів";
+"When Switching Back to the App or Website" = "Під час повернення до застосунку чи сайту";
+
+"Tooltip" = "Індикатор";
+"Indicator Triggers" = "Коли показувати індикатор";
+"isActiveWhenFocusedElementChanges" = "Коли змінюється активне поле введення";
+"isActiveWhenSwitchApp" = "Коли змінюється застосунок";
+"isActiveWhenSwitchInputSource" = "Коли змінюється розкладка";
+"isActiveWhenLongpressLeftMouse" = "При утриманні лівої кнопки миші";
+"isHideWhenSwitchAppWithForceKeyboard" = "Приховувати після застосування правила розкладки";
+
+"Advanced" = "Додаткові";
+"Troubleshooting" = "Усунення проблем";
+"Enhanced Mode Required" = "Потрібен розширений режим";
+"Enabled CJKV Fix" = "Виправляти перемикання джерел введення";
+"Enabled CJKV Fix Description" = "Ця функція може виправити ситуацію, коли іконка джерела введення вже змінилася, але система продовжує вводити текст із попереднім джерелом.";
+"Enabled CJKV Fix Shortcut Img" = "CJKVFixEnableShortcut-EN";
+"CJKV Fix Method" = "Спосіб виправлення";
+"CJKV Fix Method Switching Focus" = "Перемикання фокуса";
+"CJKV Fix Method Switching Focus Description" = "На мить перемикає фокус, щоб macOS застосувала вибране джерело введення. Цей спосіб краще працює в macOS 26, але не підтримує застосунки з плавучими вікнами.";
+"CJKV Fix Method Shortcut Simulation" = "Імітація сполучення клавіш";
+"CJKV Fix Method Shortcut Simulation Description" = "Імітує системне сполучення клавіш для вибору попереднього джерела введення. Добре працює до macOS 26, але в macOS 26 може спричиняти неочікувану поведінку системи.";
+"CJKV Fix Shortcut Method Failed Desc" = "Для імітації потрібно ввімкнути системне сполучення клавіш для вибору попереднього джерела введення.";
+"Open Keyboard Settings" = "Відкрити налаштування клавіатури";
+
+"Customize Keyboard" = "Налаштувати";
+"Keyboard Indicator Style" = "Індикатор";
+"Always-On Indicator Style" = "Постійний індикатор";
+"Reset" = "Скинути";
+
+"tryToDisplayIndicatorNearCursor" = "За можливості показувати звичайний індикатор біля текстового курсора";
+"isEnableAlwaysOnIndicator" = "Показувати постійний індикатор біля текстового курсора";
+"alwaysOnIndicatorTips" = "Постійний індикатор стежить за текстовим курсором незалежно від розташування й умов показу звичайного індикатора. Потрібен розширений режим.";
+"isAlwaysDisplayIndicatorNearMouse" = "Завжди показувати індикатор біля вказівника миші";
+"alwaysDisplayIndicatorNearMouseTips" = "Індикатор залишається видимим і стежить за вказівником миші. Якщо ввімкнено постійний індикатор біля текстового курсора, він показується біля активного поля введення, а поза ним — біля вказівника миші.";
+"Customize Styles" = "Налаштувати вигляд";
+
+"Show" = "Показувати";
+"Keyboard Label" = "Назва розкладки";
+
+"Position" = "Розташування";
+"Follow Mouse" = "Стежити за мишею";
+"Relative to App" = "Відносно застосунку";
+"Relative to Screen" = "Відносно екрана";
+"Spacing" = "Відступ";
+"Nope" = "Немає";
+"XS" = "XS";
+"S" = "S";
+"M" = "M";
+"L" = "L";
+"XL" = "XL";
+"Alignment" = "Вирівнювання";
+"Top-Left Corner" = "Угорі ліворуч";
+"Top-Center" = "Угорі по центру";
+"Top-Right Corner" = "Угорі праворуч";
+"Center-Left" = "Посередині ліворуч";
+"Center" = "По центру";
+"Center-Right" = "Посередині праворуч";
+"Bottom-Left Corner" = "Унизу ліворуч";
+"Bottom-Center" = "Унизу по центру";
+"Bottom-Right Corner" = "Унизу праворуч";
+
+"Appearance" = "Вигляд";
+"Indicator Info" = "Вміст індикатора";
+"Icon and Title" = "Іконка й назва";
+"Icon" = "Іконка";
+"Title" = "Назва";
+"Indicator Size" = "Розмір індикатора";
+"Small" = "Малий";
+"Medium" = "Середній";
+"Large" = "Великий";
+"Color Scheme" = "Колірна схема";
+"In Dark Mode" = "У темному режимі";
+"In Light Mode" = "У світлому режимі";
+"Sync with OS" = "Як у системі";
+
+"Color" = "Колір";
+"Background" = "Тло";
+"Reset Colors" = "Скинути кольори";
+
+"%@ App(s) Selected" = "Вибрано застосунків: %@";
+"System-Wide" = "Для всієї системи";
+"Default Keyboard" = "Типове джерело введення";
+"Default Function Keys" = "Типовий режим функціональних клавіш";
+"Function Keys" = "Функціональні клавіші";
+"Media Keys" = "Мультимедійні клавіші";
+"Keyboard Restore Strategy" = "Відновлення джерела введення";
+"Restore Previously Used Keyboard" = "Відновлювати попередню розкладку";
+"Use Default Keyboard Instead" = "Використовувати типове джерело введення";
+"Restore Previously Used One" = "Відновлювати попереднє";
+"Indicator" = "Індикатор";
+"Hide Indicator" = "Приховувати індикатор";
+"Punctuation" = "Пунктуація";
+"ASCII Punctuation" = "Пунктуація ASCII";
+"Force English Punctuation" = "Примусово використовувати англійську пунктуацію";
+"Use Function Keys" = "Функціональні клавіші (F1, F2 тощо)";
+"Use Media Keys" = "Мультимедійні клавіші (яскравість, гучність тощо)";
+"Use Global Setting" = "Використовувати загальне налаштування";
+"Function Keys Description" = "Використовувати F1, F2 тощо як стандартні функціональні, а не мультимедійні клавіші";
+"Toggle Function Keys" = "Перемикати режим функціональних клавіш";
+"Toggle Function Keys Description" = "Перемикайте між функціональними клавішами (F1, F2…) і мультимедійними (яскравість, гучність…) за допомогою сполучення клавіш.";
+"Input Sources" = "Джерела введення";
+"Input Monitoring Required" = "Потрібен дозвіл моніторингу введення";
+"This feature requires input monitoring permission to work" = "Для цієї функції потрібен дозвіл моніторингу введення";
+"Open Permission Settings" = "Відкрити налаштування дозволів";
+"Add Running Apps" = "Додати запущені застосунки";
+"(unknown)" = "(невідомо)";
+
+"Permission Required" = "Потрібен дозвіл";
+"Authorized" = "Дозвіл надано";
+"Browser Rules Accessibility Permission Description" = "Щоб отримувати сповіщення про перемикання вкладок браузера, Input Source Pro потрібен дозвіл **доступності**.";
+
+"Edit" = "Редагувати";
+"Match" = "Збіг";
+"Sample URL" = "Приклад URL";
+"Rule Type" = "Тип правила";
+"Domain" = "Домен";
+"Restore Strategy" = "Спосіб відновлення";
+"Keyboard" = "Розкладка";
+"Cancel" = "Скасувати";
+"Add" = "Додати";
+"Save" = "Зберегти";
+"Close" = "Закрити";
+
+"DOMAIN-SUFFIX Explanation" = "Зіставляти URL за суфіксом домену. Наприклад, '`google.com`' відповідає '`www.google.com`', '`mail.google.com`' і '`google.com`', але **не відповідає** '`xxx-google.com`'.";
+"DOMAIN Explanation" = "Зіставляти URL за точним доменом. Наприклад, '`google.com`' відповідає '`google.com`', але **не відповідає** '`www.google.com`' чи '`mail.google.com`'.";
+"URL-REGEX Explanation" = "Зіставляти URL за [регулярними виразами](https://inputsource.pro/help/regex). Не забувайте екранувати спеціальні символи, наприклад '`\\`', '`.`' тощо.";
+
+"Default Keyboard for Address Bar" = "Типова розкладка для адресного рядка";
+
+"Version" = "Версія";
+"Check Updates" = "Перевірити оновлення";
+"Automatically Check for Updates" = "Автоматично перевіряти оновлення";
+
+"Support" = "Підтримка";
+"Website" = "Сайт";
+"Email" = "Електронна пошта";
+"Copy" = "Копіювати";
+"Twitter" = "Twitter";
+
+"Privacy" = "Приватність";
+"Privacy Content" = "Діагностика запуску типово вимкнена. Якщо її ввімкнути, під час запуску версії застосунку та macOS надсилаються на inputsource.pro; сервер може бачити вашу IP-адресу. Вимкнення припиняє подальші запити. Відгуки й перевірка оновлень працюють окремо. Налаштування можуть завантажувати рекламну іконку з refine.sh.";
+
+"Find Us" = "Зв’язок із нами";
+"Right click each section to copy link" = "Натисніть правою кнопкою миші на розділ, щоб скопіювати посилання";
+
+"Send Feedback" = "Надіслати відгук";
+"FeedbackTips" = "Розкажіть, як зробити Input Source Pro кращим. Заповніть форму, і ми вам відповімо. 🥰";
+"FeedbackMessageTitle" = "Повідомлення";
+"FeedbackMessagePlaceholder" = "Знайшли помилку чи бракує потрібної функції?";
+"FeedbackEmailTitle" = "Електронна пошта (необов’язково)";
+"FeedbackSuccessTips" = "Дякуємо, що поділилися своїми думками! ❤️";
+
+"Delete" = "Видалити";
+"Select Input Sources" = "Вибрати джерела введення";
+"Add Switch Group" = "Додати групу перемикання";
+"Add a switch group to allow switching between multiple input sources using the same hotkey. Select at least two input sources." = "Додайте групу, щоб перемикатися між кількома джерелами введення одним сполученням клавіш. Виберіть щонайменше два джерела.";
+
+"System Reboot Required" = "Зміни набудуть чинності після перезапуску Mac";
+"Cursor Lag Fix" = "Усувати затримку введення та курсора";
+"Cursor Lag Fix Description" = "У macOS 14 Sonoma з’явився експериментальний текстовий курсор із підказкою під точкою введення (наприклад, Caps Lock або зміна джерела введення). На деяких Mac ця функція може спричиняти зависання CursorUIViewService і затримку введення. Якщо виникла така проблема, спробуйте ввімкнути цю опцію, щоб вимкнути експериментальний курсор і повернути класичний.";
+
+"Shortcut Mode" = "Режим сполучення клавіш";
+"Shortcut Type" = "Тип сполучення клавіш";
+"Shortcut" = "Сполучення клавіш";
+"Modifier" = "Клавіша-модифікатор";
+"Choose modifier combination" = "Виберіть комбінацію модифікаторів";
+"Trigger" = "Спосіб активації";
+"Keyboard Shortcuts" = "Сполучення клавіш";
+"Single Modifier" = "Один модифікатор";
+"Modifier Combination" = "Комбінація модифікаторів";
+"Modifier Trigger" = "Активація модифікатором";
+"Press Once" = "Одне натискання";
+"Press Twice" = "Два натискання";
+"None" = "Немає";
+"Left Shift" = "Лівий Shift";
+"Right Shift" = "Правий Shift";
+"Left Control" = "Лівий Control";
+"Right Control" = "Правий Control";
+"Left Option" = "Лівий Option";
+"Right Option" = "Правий Option";
+"Left Command" = "Лівий Command";
+"Right Command" = "Правий Command";
+"Single Modifier shortcuts require additional permissions to work reliably." = "Для надійної роботи сполучень з одним модифікатором потрібні додаткові дозволи.";
+"Modifier shortcuts require additional permissions to work reliably." = "Для надійної роботи сполучень із модифікаторами потрібні додаткові дозволи.";
+"Accessibility" = "Доступність";
+"Open Accessibility Settings" = "Відкрити налаштування доступності";
+"Open Accessibility Settings, find \"Input Source Pro\" in the list and enable the toggle." = "Відкрийте налаштування доступності, знайдіть у списку Input Source Pro та ввімкніть перемикач.";
+"Input Monitoring" = "Моніторинг введення";
+"Open Input Monitoring Settings" = "Відкрити моніторинг введення";
+"Open Input Monitoring Settings, click the \"+\" button and add \"Input Source Pro\" to the list." = "Відкрийте налаштування моніторингу введення, натисніть «+» і додайте Input Source Pro до списку.";
+"Disabled until permissions are granted" = "Вимкнено до надання дозволів";
+"Conflicts with the %@ shortcut" = "Конфліктує зі сполученням клавіш %@";
+
+"Settings Backup" = "Резервна копія налаштувань";
+"Export Settings" = "Експортувати налаштування";
+"Import Settings" = "Імпортувати налаштування";
+"Scriptable Import Entry" = "Відновити з командного рядка";
+"Scriptable Import Title" = "Імпорт налаштувань однією командою";
+"Scriptable Import Summary" = "Відновіть Input Source Pro на новому Mac.";
+"Scriptable Import Silent" = "Приховати повідомлення про успіх";
+"Done" = "Готово";
+"Settings Exported" = "Налаштування експортовано";
+"Settings Exported Message" = "Резервну копію налаштувань успішно експортовано.";
+"Settings Imported" = "Налаштування імпортовано";
+"Settings Imported Message" = "Налаштування успішно імпортовано.";
+"Export Settings Failed" = "Не вдалося експортувати налаштування";
+"Import Settings Failed" = "Не вдалося імпортувати налаштування";
+"No valid file path was provided. Use an absolute path, e.g. inputsourcepro://import?path=/path/to/settings.json" = "Не вказано коректний шлях до файлу. Використайте абсолютний шлях, наприклад inputsourcepro://import?path=/path/to/settings.json";
+"Replace Current Settings?" = "Замінити поточні налаштування?";
+"Import Settings Confirmation Message" = "Імпорт цього файлу замінить поточні підтримувані налаштування, правила, кольори, групи перемикання та збережені сполучення клавіш.";
+"Unsupported settings backup version %@" = "Непідтримувана версія резервної копії налаштувань: %@.";
+"Unable to save imported settings." = "Не вдалося зберегти імпортовані налаштування.";
+
+// Caps Lock
+"Caps Lock" = "Caps Lock";
+"Display When Caps Lock Changes" = "Показувати при зміні Caps Lock";
+"Display the input source when Caps Lock changes, with a symbol while it is on." = "Показувати джерело введення при зміні Caps Lock і позначку, коли Caps Lock увімкнено.";
+"Caps Lock On" = "Caps Lock увімкнено";
+
+"Receive beta updates" = "Отримувати бета-оновлення";
+"Stable updates resume when a newer stable build is available." = "Стабільні оновлення відновляться, коли з’явиться новіша стабільна збірка.";
+
+"Share startup diagnostics" = "Надсилати діагностику запуску";
+"Select a regular settings file." = "Виберіть звичайний файл налаштувань.";
+"Settings files must be no larger than 4 MiB." = "Розмір файлу налаштувань не має перевищувати 4 MiB.";
+"Import always asks before replacing settings." = "Перед заміною налаштувань завжди потрібне підтвердження.";
+
+// Additional cursor support
+"Additional cursor support" = "Додаткова підтримка курсора";
+"Help the indicator follow the text cursor in more apps." = "Допомагає індикатору стежити за текстовим курсором у більшій кількості застосунків.";
+"Uninstall…" = "Видалити…";
+"Set up…" = "Налаштувати…";
+"Review setup…" = "Переглянути налаштування…";
+"Permission required. Choose Set up to enable Cursor Helper." = "Потрібен дозвіл. Натисніть «Налаштувати», щоб увімкнути Cursor Helper.";
+"Uninstall cursor helper?" = "Видалити допоміжний процес курсора?";
+"Uninstall" = "Видалити";
+"This turns off additional cursor support and removes the helper from this Mac. Standard cursor tracking will remain available." = "Додаткову підтримку курсора буде вимкнено, а допоміжний процес — видалено з цього Mac. Звичайне відстеження курсора залишиться доступним.";
+"Set up additional cursor support" = "Налаштування додаткової підтримки курсора";
+"Additional cursor support is on." = "Додаткову підтримку курсора ввімкнено.";
+"Install Cursor Helper to keep the indicator next to the text cursor in more apps." = "Встановіть Cursor Helper, щоб індикатор залишався біля текстового курсора в більшій кількості застосунків.";
+"macOS treats the helper as an input method, so its permission dialog warns about access to what you type. Cursor Helper uses the cursor’s position and does not read or record your text." = "macOS вважає допоміжний процес методом введення, тому в діалозі дозволу попереджає про доступ до введеного тексту. Cursor Helper використовує положення курсора та не читає й не записує ваш текст.";
+"In System Settings, choose Allow to enable Cursor Helper." = "У системних параметрах натисніть «Дозволити», щоб увімкнути Cursor Helper.";
+"Try again" = "Повторити";
+"Continue setup" = "Продовжити налаштування";
+"Install and continue" = "Встановити й продовжити";
+"If the permission dialog did not appear, close System Settings and try again." = "Якщо діалог дозволу не з’явився, закрийте системні параметри та повторіть спробу.";
+"Installing helper…" = "Встановлення допоміжного процесу…";
+"Waiting for permission…" = "Очікування дозволу…";
+"Starting cursor support…" = "Запуск підтримки курсора…";
+"Uninstalling helper…" = "Видалення допоміжного процесу…";
+"Cursor Helper disconnected. Choose Set up to reconnect it." = "Зв’язок із Cursor Helper втрачено. Натисніть «Налаштувати», щоб під’єднати його знову.";
+"The cursor helper is missing. Choose Set up to install it again." = "Допоміжний процес курсора відсутній. Натисніть «Налаштувати», щоб установити його знову.";
+"Cursor support needs permission. Choose Set up to allow the helper." = "Для підтримки курсора потрібен дозвіл. Натисніть «Налаштувати», щоб надати його допоміжному процесу.";
+"Cursor support could not start. Check Enhanced Mode and the helper permission, then try again." = "Не вдалося запустити підтримку курсора. Перевірте розширений режим і дозвіл допоміжного процесу, а потім повторіть спробу.";
+"The cursor helper could not start. Try again." = "Не вдалося запустити допоміжний процес курсора. Повторіть спробу.";
+"Cursor Helper did not connect. Choose Try again to restart cursor support." = "Cursor Helper не під’єднався. Натисніть «Повторити», щоб перезапустити підтримку курсора.";
+"Cursor Helper could not reconnect. Choose Set up to try again." = "Не вдалося знову під’єднати Cursor Helper. Натисніть «Налаштувати», щоб повторити спробу.";
+"The helper could not be removed. Try again." = "Не вдалося видалити допоміжний процес. Повторіть спробу.";
+"This copy of the app is missing its cursor helper. Reinstall the app and try again." = "У цій копії застосунку немає допоміжного процесу курсора. Перевстановіть застосунок і повторіть спробу.";
+"The cursor helper could not complete this action. Try again." = "Допоміжний процес курсора не зміг виконати цю дію. Повторіть спробу.";
+"The cursor setup tool stopped unexpectedly (signal %d). Close and reopen the app, then try again." = "Засіб налаштування курсора неочікувано завершив роботу (сигнал %d). Закрийте застосунок, відкрийте його знову та повторіть спробу.";
