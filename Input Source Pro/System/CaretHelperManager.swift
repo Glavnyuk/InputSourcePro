@@ -17,10 +17,10 @@ final class CaretHelperManager: ObservableObject {
         case installing, permission, activating, removing
         var title: String {
             switch self {
-            case .installing: return "Installing helper…"
-            case .permission: return "Waiting for permission…"
-            case .activating: return "Starting cursor support…"
-            case .removing: return "Uninstalling helper…"
+            case .installing: return "Installing helper…".i18n()
+            case .permission: return "Waiting for permission…".i18n()
+            case .activating: return "Starting cursor support…".i18n()
+            case .removing: return "Uninstalling helper…".i18n()
             }
         }
     }
@@ -86,7 +86,7 @@ final class CaretHelperManager: ObservableObject {
                 guard let self = self, self.isActive, self.canActivate, !self.isBusy,
                       !CaretPalette.shared.isConnected else { return }
                 self.isActive = false
-                self.error = "Cursor Helper disconnected. Choose Set up to reconnect it."
+                self.error = "Cursor Helper disconnected. Choose Set up to reconnect it.".i18n()
             }
             .store(in: &subscriptions)
     }
@@ -166,7 +166,7 @@ final class CaretHelperManager: ObservableObject {
             if !status.installed || !Self.sameVersion(helper, installed) {
                 // Automatic activation must never reinstall a removed helper.
                 guard status.installed || allowPermission else {
-                    throw Failure("The cursor helper is missing. Choose Set up to install it again.")
+                    throw Failure("The cursor helper is missing. Choose Set up to install it again.".i18n())
                 }
                 operation = .installing
                 stopTracking()
@@ -176,7 +176,7 @@ final class CaretHelperManager: ObservableObject {
             }
             if needsInitialPermission || !status.enabled {
                 guard allowPermission else {
-                    throw Failure("Cursor support needs permission. Choose Set up to allow the helper.")
+                    throw Failure("Cursor support needs permission. Choose Set up to allow the helper.".i18n())
                 }
                 operation = .permission
                 var arguments = ["authorize"]
@@ -187,21 +187,21 @@ final class CaretHelperManager: ObservableObject {
                 status = try await readStatus()
             }
             guard canActivate, status.isReady else {
-                throw Failure("Cursor support could not start. Check Enhanced Mode and the helper permission, then try again.")
+                throw Failure("Cursor support could not start. Check Enhanced Mode and the helper permission, then try again.".i18n())
             }
             operation = .activating
             _ = try await run(["start"])
             status = try await readStatus()
             guard canActivate, status.isReady, status.selected else {
-                throw Failure("The cursor helper could not start. Try again.")
+                throw Failure("The cursor helper could not start. Try again.".i18n())
             }
             let started = await startTracking()
             guard started else {
-                throw Failure("Cursor Helper did not connect. Choose Try again to restart cursor support.")
+                throw Failure("Cursor Helper did not connect. Choose Try again to restart cursor support.".i18n())
             }
             status = try await readStatus()
             guard canActivate, status.isReady, status.selected, isTrackingConnected() else {
-                throw Failure("The cursor helper could not start. Try again.")
+                throw Failure("The cursor helper could not start. Try again.".i18n())
             }
             isActive = true
         } catch {
@@ -221,14 +221,14 @@ final class CaretHelperManager: ObservableObject {
         defer { operation = nil }
         do {
             status = try await readStatus()
-            guard status.isReady else { throw Failure("Cursor support needs permission. Choose Set up to allow the helper.") }
+            guard status.isReady else { throw Failure("Cursor support needs permission. Choose Set up to allow the helper.".i18n()) }
             if !status.selected { _ = try await run(["start"]) }
             status = try await readStatus()
             let connected = await startTracking()
             status = try await readStatus()
             isActive = status.isReady && status.selected && canActivate && connected && isTrackingConnected()
             if !isActive {
-                throw Failure("Cursor Helper could not reconnect. Choose Set up to try again.")
+                throw Failure("Cursor Helper could not reconnect. Choose Set up to try again.".i18n())
             }
         } catch {
             stopTracking()
@@ -259,7 +259,7 @@ final class CaretHelperManager: ObservableObject {
         do {
             _ = try await run(["uninstall"])
             status = try await readStatus()
-            guard !status.installed else { throw Failure("The helper could not be removed. Try again.") }
+            guard !status.installed else { throw Failure("The helper could not be removed. Try again.".i18n()) }
         } catch {
             self.error = error.localizedDescription
             if let current = try? await readStatus() { status = current }
@@ -277,7 +277,7 @@ final class CaretHelperManager: ObservableObject {
     private func bundledHelper() throws -> URL {
         let url = helperURL ?? Bundle.main.bundleURL.appendingPathComponent("Contents/Helpers/CaretPalette/ISP Palette Control.app")
         guard FileManager.default.fileExists(atPath: url.path) else {
-            throw Failure("This copy of the app is missing its cursor helper. Reinstall the app and try again.")
+            throw Failure("This copy of the app is missing its cursor helper. Reinstall the app and try again.".i18n())
         }
         return url
     }
@@ -307,9 +307,9 @@ final class CaretHelperManager: ObservableObject {
             guard process.terminationStatus == 0 else {
                 let detail = String(decoding: diagnostics, as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
                 if process.terminationReason == .uncaughtSignal {
-                    throw Failure("The cursor setup tool stopped unexpectedly (signal \(process.terminationStatus)). Close and reopen the app, then try again.")
+                    throw Failure(String(format: "The cursor setup tool stopped unexpectedly (signal %d). Close and reopen the app, then try again.".i18n(), process.terminationStatus))
                 }
-                throw Failure(detail.isEmpty ? "The cursor helper could not complete this action. Try again." : detail)
+                throw Failure(detail.isEmpty ? "The cursor helper could not complete this action. Try again.".i18n() : detail)
             }
             return message
         }.value

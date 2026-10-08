@@ -97,14 +97,14 @@ private struct CaretHelperSheet: View {
 
             HStack {
                 Spacer()
-                Button(attemptedSetup ? "Close" : "Cancel") {
+                Button(attemptedSetup ? "Close".i18n() : "Cancel".i18n()) {
                     helper.cancelPermissionRequest()
                     dismiss()
                 }
                 .keyboardShortcut(.cancelAction)
                 .disabled(helper.isBusy && helper.operation != .permission)
                 if !helper.isActive {
-                    Button(attemptedSetup ? "Try again" : (helper.status.installed ? "Continue setup" : "Install and continue")) {
+                    Button(attemptedSetup ? "Try again".i18n() : (helper.status.installed ? "Continue setup".i18n() : "Install and continue".i18n())) {
                         attemptedSetup = true
                         Task { await helper.setup() }
                     }
