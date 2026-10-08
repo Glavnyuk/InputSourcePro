@@ -1,4 +1,5 @@
 import XCTest
+import Darwin
 @testable import Input_Source_Pro
 
 final class AppURLActionTests: XCTestCase {
@@ -129,5 +130,75 @@ final class AppURLActionTests: XCTestCase {
 
     func testForeignSchemeIsUnsupported() {
         XCTAssertEqual(action("https://import?path=/tmp/settings.json"), .unsupported)
+    }
+}
+
+
+final class SettingsBackupFileReaderTests: XCTestCase {
+    private func inTemporaryDirectory(_ body: (URL) throws -> Void) throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try body(directory)
+    }
+
+    func testRegularFilePreservesBytes() throws {
+        try inTemporaryDirectory { directory in
+            let file = directory.appendingPathComponent("settings.json")
+            let data = Data("{\"schemaVersion\":1}".utf8)
+            try data.write(to: file)
+            XCTAssertEqual(try SettingsBackupFileReader.readBounded(from: file), data)
+        }
+    }
+
+    func testSizeBoundaryAndOversize() throws {
+        try inTemporaryDirectory { directory in
+            let file = directory.appendingPathComponent("settings.json")
+            let data = Data(repeating: 32, count: SettingsBackupFileReader.maximumBytes)
+            try data.write(to: file)
+            XCTAssertEqual(try SettingsBackupFileReader.readBounded(from: file).count, data.count)
+            try (data + Data([32])).write(to: file)
+            XCTAssertThrowsError(try SettingsBackupFileReader.readBounded(from: file)) { error in
+                guard case SettingsBackupFileReader.Failure.tooLarge = error else {
+                    return XCTFail("Expected a size-limit error, got \(error)")
+                }
+            }
+        }
+    }
+
+    func testRejectsDirectoryDeviceAndRemoteURL() throws {
+        try inTemporaryDirectory { directory in
+            XCTAssertThrowsError(try SettingsBackupFileReader.readBounded(from: directory))
+        }
+        XCTAssertThrowsError(try SettingsBackupFileReader.readBounded(from: URL(fileURLWithPath: "/dev/null")))
+        XCTAssertThrowsError(try SettingsBackupFileReader.readBounded(from: URL(string: "https://example.com/settings.json")!))
+    }
+
+    func testRejectsSymlinkAndMissingFile() throws {
+        try inTemporaryDirectory { directory in
+            let file = directory.appendingPathComponent("settings.json")
+            let symlink = directory.appendingPathComponent("link.json")
+            XCTAssertThrowsError(try SettingsBackupFileReader.readBounded(from: file))
+            try Data("{}".utf8).write(to: file)
+            try FileManager.default.createSymbolicLink(at: symlink, withDestinationURL: file)
+            XCTAssertThrowsError(try SettingsBackupFileReader.readBounded(from: symlink))
+        }
+    }
+
+    func testRejectsFIFOWithoutWaitingForWriter() throws {
+        try inTemporaryDirectory { directory in
+            let fifo = directory.appendingPathComponent("pipe.json")
+            XCTAssertEqual(mkfifo(fifo.path, 0o600), 0)
+            XCTAssertThrowsError(try SettingsBackupFileReader.readBounded(from: fifo))
+        }
+    }
+
+    func testAsyncReadReturnsSameBytes() async throws {
+        let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: file) }
+        let expected = Data("{}".utf8)
+        try expected.write(to: file)
+        let actual = try await SettingsBackupFileReader.read(from: file)
+        XCTAssertEqual(actual, expected)
     }
 }

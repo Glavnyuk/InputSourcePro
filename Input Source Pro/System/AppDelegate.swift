@@ -127,6 +127,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @MainActor
     func sendLaunchPing() {
+        guard preferencesVM.sendsLaunchTelemetry,
+              ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil
+        else { return }
         let url = "https://inputsource.pro/api/launch"
         let launchData: [String: String] = [
             "prevInstalledBuildVersion": "\(preferencesVM.preferences.prevInstalledBuildVersion)",
@@ -181,71 +184,69 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    /// Imports a settings backup without the interactive confirmation the GUI
-    /// uses — this path is meant for non-interactive provisioning. The current
-    /// settings are backed up first so a bad import stays recoverable. When
-    /// `silent` is `true` the success alert is skipped (for unattended runs), but
-    /// a failure always alerts so it can't pass unnoticed.
+    /// The public URL scheme always asks before replacing settings. `silent`
+    /// suppresses only the success notice, never user consent.
     @MainActor
     private func importSettings(from fileURL: URL, silent: Bool) {
-        do {
-            let backup = try preferencesVM.readSettingsBackup(from: fileURL)
-            backUpCurrentSettings()
-            try preferencesVM.importSettingsBackup(backup)
-            indicatorVM.refreshShortcut()
-            guard !silent else { return }
-            presentResultAlert(
-                title: "Settings Imported".i18n(),
-                message: "Settings Imported Message".i18n(),
-                style: .informational
-            )
-        } catch {
-            presentResultAlert(
-                title: "Import Settings Failed".i18n(),
-                message: error.localizedDescription,
-                style: .critical
-            )
+        guard !preferencesVM.isImportingSettings else { return }
+        preferencesVM.isImportingSettings = true
+        Task { @MainActor in
+            defer { preferencesVM.isImportingSettings = false }
+            guard preferencesVM.confirmSettingsImport(from: fileURL) else { return }
+            do {
+                let backup = try await preferencesVM.readSettingsBackup(from: fileURL)
+                try backUpCurrentSettings()
+                try preferencesVM.importSettingsBackup(backup)
+                indicatorVM.refreshShortcut()
+                guard !silent else { return }
+                presentResultAlert(
+                    title: "Settings Imported".i18n(),
+                    message: "Settings Imported Message".i18n(),
+                    style: .informational
+                )
+            } catch {
+                presentResultAlert(
+                    title: "Import Settings Failed".i18n(),
+                    message: error.localizedDescription,
+                    style: .critical
+                )
+            }
         }
     }
 
-    /// Best-effort snapshot of the current settings written to Application Support
-    /// before a destructive import. Never blocks the import if it fails.
+    /// Fail closed if the current settings cannot be backed up.
     @MainActor
-    private func backUpCurrentSettings() {
-        do {
-            let data = try preferencesVM.exportSettingsBackupData()
-            let directory = try FileManager.default
-                .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                .appendingPathComponent("Input Source Pro", isDirectory: true)
-                .appendingPathComponent("Backups", isDirectory: true)
-            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            formatter.dateFormat = "yyyy-MM-dd-HHmmss"
-            let fileURL = directory
-                .appendingPathComponent("settings-backup-\(formatter.string(from: Date())).json")
-
-            try data.write(to: fileURL, options: .atomic)
-            pruneSettingsBackups(in: directory, keeping: 10)
-        } catch {
-            print("Failed to write pre-import settings backup: \(error.localizedDescription)")
-        }
+    private func backUpCurrentSettings() throws {
+        let data = try preferencesVM.exportSettingsBackupData()
+        let directory = try FileManager.default
+            .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appendingPathComponent("Input Source Pro", isDirectory: true)
+            .appendingPathComponent("Backups", isDirectory: true)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true,
+                                               attributes: [.posixPermissions: 0o700])
+        let fileURL = directory.appendingPathComponent("settings-backup-\(UUID().uuidString).json")
+        try data.write(to: fileURL, options: .atomic)
+        try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: fileURL.path)
+        pruneSettingsBackups(in: directory, keeping: 10)
     }
 
     /// Keeps only the most recent `keeping` pre-import backups so they don't grow
-    /// without bound. Best-effort: the timestamped `settings-backup-…json` names
-    /// sort chronologically, so this is a lexicographic sort + trim of the tail.
+    /// without bound. The `settings-backup-…json` files
+    /// are ordered by modification time before trimming the oldest files.
     @MainActor
     private func pruneSettingsBackups(in directory: URL, keeping: Int) {
         guard let files = try? FileManager.default.contentsOfDirectory(
             at: directory,
-            includingPropertiesForKeys: nil
+            includingPropertiesForKeys: [.contentModificationDateKey]
         ) else { return }
 
         let backups = files
             .filter { $0.lastPathComponent.hasPrefix("settings-backup-") && $0.pathExtension == "json" }
-            .sorted { $0.lastPathComponent > $1.lastPathComponent }
+            .sorted {
+                let left = (try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast
+                let right = (try? $1.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast
+                return left > right
+            }
 
         for stale in backups.dropFirst(keeping) {
             try? FileManager.default.removeItem(at: stale)

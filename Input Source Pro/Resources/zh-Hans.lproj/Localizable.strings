@@ -177,7 +177,7 @@
 "Twitter" = "啁啾会馆";
 
 "Privacy" = "隐私";
-"Privacy Content" = "我们会收集启动以及崩溃数据。所有收集的数据都不会包括任何个人信息。";
+"Privacy Content" = "启动诊断信息默认关闭。启用后，每次启动会向 inputsource.pro 发送应用和 macOS 版本，服务器可看到您的 IP 地址。关闭后将停止后续启动请求。反馈与更新检查是独立功能。设置页面可能从 refine.sh 加载推广图片。";
 
 "Find Us" = "找到我们";
 "Right click each section to copy link" = "右键点击各项可复制链接";
@@ -258,3 +258,8 @@
 
 "Receive beta updates" = "接收测试版更新";
 "Stable updates resume when a newer stable build is available." = "当有更新的稳定版构建可用时，将恢复稳定版更新。";
+
+"Share startup diagnostics" = "分享启动诊断信息";
+"Select a regular settings file." = "请选择普通的设置文件。";
+"Settings files must be no larger than 4 MiB." = "设置文件不得大于 4 MiB。";
+"Import always asks before replacing settings." = "替换设置前始终要求确认。";

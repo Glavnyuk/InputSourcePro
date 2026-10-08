@@ -1,3 +1,4 @@
+import AppKit
 import CoreData
 import Foundation
 import KeyboardShortcuts
@@ -508,9 +509,27 @@ extension PreferencesVM {
         return try encoder.encode(backup)
     }
 
-    func readSettingsBackup(from url: URL) throws -> SettingsBackup {
-        let data = try Data(contentsOf: url)
+    func readSettingsBackup(from url: URL) async throws -> SettingsBackup {
+        let data = try await SettingsBackupFileReader.read(from: url)
         return try Self.decodeSettingsBackup(from: data)
+    }
+
+    func confirmSettingsImport(from url: URL) -> Bool {
+        Self.settingsImportConfirmation(from: url).runModal() == .alertSecondButtonReturn
+    }
+
+    static func settingsImportConfirmation(from url: URL) -> NSAlert {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = "Replace Current Settings?".i18n()
+        alert.informativeText = url.lastPathComponent + "\n\n"
+            + "Import Settings Confirmation Message".i18n()
+        // Cancel is the default action; a URL must never silently authorize replacement.
+        alert.addButton(withTitle: "Cancel".i18n())
+        alert.addButton(withTitle: "Import Settings".i18n())
+        alert.buttons[0].keyEquivalent = "\r"
+        alert.buttons[1].keyEquivalent = ""
+        return alert
     }
 
     static func decodeSettingsBackup(from data: Data) throws -> SettingsBackup {
